@@ -225,3 +225,84 @@ sudo journalctl -u filebeat
 - You can filter by container ID, container name, etc.
 
 ---
+
+
+Here's a simple `docker-compose.yml` file that sets up the ELK stack (Elasticsearch, Logstash, and Kibana) locally using Docker Compose:
+
+```yaml
+version: '3'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.1
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    networks:
+      - elk
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.8.1
+    environment:
+      - "xpack.monitoring.enabled=false"
+    ports:
+      - "5044:5044"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    networks:
+      - elk
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.8.1
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+
+networks:
+  elk:
+    driver: bridge
+
+volumes:
+  esdata:
+    driver: local
+```
+
+Additionally, you will need to create a `logstash.conf` file in the same directory as the `docker-compose.yml` file for Logstash configuration. Here's a basic example to get started:
+
+### `logstash.conf`
+```plaintext
+input {
+  beats {
+    port => 5044
+  }
+}
+
+filter {
+  # Add filters as needed
+}
+
+output {
+  elasticsearch {
+    hosts => ["http://elasticsearch:9200"]
+    index => "logstash-%{+YYYY.MM.dd}"
+  }
+}
+```
+
+### Steps to run:
+1. Save both files (`docker-compose.yml` and `logstash.conf`) in a directory.
+2. In the terminal, navigate to the directory where the files are saved.
+3. Run `docker-compose up` to start the stack.
+4. Access Kibana at `http://localhost:5601` to view logs and data.
+
+This setup creates a simple local ELK stack where:
+- Elasticsearch is exposed on port `9200`.
+- Logstash is exposed on port `5044`.
+- Kibana is exposed on port `5601`.
+
