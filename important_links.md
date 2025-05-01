@@ -14,7 +14,7 @@
 ---
 
 # Docker from Scratch
-## Building a container filesystem by hand
+## Learn fundamentals of Dockers , file system, performance etc
 
 - [Primer on Linux container filesystems](https://michalpitr.substack.com/p/primer-on-linux-container-filesystems?triedRedirect=true)
 - [Linux container from scratch](https://michalpitr.substack.com/p/linux-container-from-scratch)
