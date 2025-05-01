@@ -9,3 +9,14 @@
 - [Developer Docker Cheat Sheet](https://doc.sitecore.com/xp/en/developers/latest/developer-tools/sitecore-docker-cheat-sheet.html)
 
 - [json crack editor](https://jsoncrack.com/editor)
+
+
+---
+
+# Docker from Scratch
+## Building a container filesystem by hand
+
+- [Primer on Linux container filesystems](https://michalpitr.substack.com/p/primer-on-linux-container-filesystems?triedRedirect=true)
+- [Linux container from scratch](https://michalpitr.substack.com/p/linux-container-from-scratch)
+
+- [https://www.causely.ai/blog/tackling-cpu-throttling-in-kubernetes](https://www.causely.ai/blog/tackling-cpu-throttling-in-kubernetes)
